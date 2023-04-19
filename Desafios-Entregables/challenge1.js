@@ -3,16 +3,36 @@ class productManager {
         this.products = []
     }
 
-    addProduct (title, description, price, thumbnail, code) {
-        let newObj = {
-            title: title,
-            description: description,
-            price: price,
-            thumbnail: thumbnail,
-            code: code
+    addProduct(title, description, price, thumbnail, code, stock) {
+        try {
+
+            if (this.products.find(prod => prod.code === code)) {
+                console.log(`Ya existe un producto con el código ${code}`);
+                return;
+            } else if (title && description && price && thumbnail && code && stock) {
+                if (this.products.find(prod => prod.code === code)) {
+                    console.log(`Ya existe un producto con el código ${code}`);
+                    return;
+                } else {
+                    const product = {
+                        id: this.products.length,
+                        title: title,
+                        description: description,
+                        price: price,
+                        thumbnail: thumbnail,
+                        code: code,
+                        stock: stock
+                    };
+            
+                    this.products.push(product);
+                }
+            } else {
+                console.error('Hay parametros vacíos, asegurate de completar todos')
+            }
+        } catch (error) {
+            console.log(error);
         }
-        
-        this.products.push(newObj);
+
         return this.products;
     }
     
@@ -20,35 +40,15 @@ class productManager {
         return this.products;
     }
     
-    getProductById (code) {
-        return this.products.filter(product => product.code === code);
-    }
-    
-    updateProduct (code, title, description, price, thumbnail) {
-        let product = this.products.filter(product => product.code === code)
-        product.title = title
-        product.description = description
-        product.price = price
-        product.thumbnail = thumbnail
-        return product, this.products;
-    }
-    
-    deleteProduct (code) {
-        let product = this.products.filter(product => product.code === code)
-        let index = this.products.indexOf(product)
-        this.products.splice(index, 1)
-        return this.products;
+    getProductById (id) {
+        return this.products.filter(product => product.id === id);
     }
 }
 
 let pm = new productManager;
-pm.addProduct('Maceta', 'Maceta 50 litros', 3000, '', 'a1');
-pm.addProduct('Mesa', 'Mesa de centro ratona de cafe', 50000, '', 'b2');
-pm.addProduct('Sommier', 'Cama sommier', 80000, '', 'c3');
-pm.addProduct('Mesa', 'Mesa de Ping Pong', 50000, '', 'd4');
-console.log(pm.products);
-console.log(Object.values(pm.getProducts()));
-console.log(pm.getProductById('d4'));
-console.log(pm.updateProduct('b2', 'Escritorio', 'Escritorio de madera', 100000, ''));
+pm.addProduct('Maceta', 'Maceta 50 litros', 3000, 'No disponible', 'a1', 10);
+pm.addProduct('Mesa', 'Mesa de centro ratona de cafe', 50000, 'No disponible', 'b2', 25);
+pm.addProduct('Sommier', 'Cama sommier', 80000, 'No disponible', 'c3', 2);
+pm.addProduct('Mesa', 'Mesa de Ping Pong', 50000, 'No disponible', 'd4', 7);
 console.log(pm.getProducts());
-console.log(pm.deleteProduct('d4'));
+console.log(pm.getProductById(2));
