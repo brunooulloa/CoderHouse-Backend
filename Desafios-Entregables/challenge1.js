@@ -28,6 +28,7 @@ class productManager {
                 }
             } else {
                 console.error('Hay parametros vacíos, asegurate de completar todos')
+                return;
             }
         } catch (error) {
             console.log(error);
