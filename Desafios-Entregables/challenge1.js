@@ -59,9 +59,12 @@ class productManager {
     }
     
     getProductById (id) {
-
-        return this.products.filter(product => product.id === id);
-
+        try {
+            return this.products.filter(product => product.id === id);
+        } catch (error) {
+            console.log('No se encontró el producto');
+            console.log(error);
+        }
     }
 }
 
