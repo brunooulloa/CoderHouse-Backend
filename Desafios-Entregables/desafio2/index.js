@@ -130,5 +130,5 @@ console.log(pm.getProducts());
 console.log(pm.addProduct('producto prueba', 'Este es un producto prueba', 200, 'Sin imagen', 'abc123', 25));
 console.log(pm.getProducts());
 console.log(pm.getProductById(0));
-console.log(pm.updateProduct(0, 'producto prueba 2', undefined, undefined, undefined, undefined, undefined));
+console.log(pm.updateProduct(0, 'producto prueba 2'));
 console.log(pm.deleteProduct(0));
