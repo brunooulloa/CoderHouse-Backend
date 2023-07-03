@@ -1,0 +1,23 @@
+{
+  "name": "coderhouse-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Clase6.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ssooftt/CoderHouse-Backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ssooftt/CoderHouse-Backend/issues"
+  },
+  "homepage": "https://github.com/ssooftt/CoderHouse-Backend#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemon": "^2.0.22"
+  }
+}
