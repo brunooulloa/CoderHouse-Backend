@@ -15,7 +15,7 @@ app.get('/products', async (req, res) => {
 
     try {
 
-        let limit = parseInt(req.query.limit);
+        let limit = Number(req.query.limit);
 
         if (!limit) {
 
@@ -41,7 +41,7 @@ app.get('/products/:pid', async (req, res) => {
 
     try {
 
-        let pid = parseInt(req.params.pid);
+        let pid = Number(req.params.pid);
         let result = await pm.getProductById(pid);
         res.send(result);
 

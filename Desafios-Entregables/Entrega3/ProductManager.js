@@ -72,55 +72,75 @@ export class ProductManager {
     }
 
     async addProduct(product) {
-        
-        if (!product || !product.title || !product.description || !product.price) {
-            console.error('Fields validation failed!');
-            return;
-        }
-    
-        
-        let lastProd = this.products[this.products.length - 1];
-        let nextId = 1;
 
-        if (lastProd) {
-          nextId = lastProduct.id + 1;
+        try {
+        
+            if (!product || !product.title || !product.description || !product.price) {
+                console.error('Fields validation failed!');
+                return;
+            }
+        
+            
+            let lastProd = this.products[this.products.length - 1];
+            let nextId = 1;
+
+            if (lastProd) {
+                nextId = lastProd.id + 1;
+            }
+        
+            const newProduct = { id: nextId, ...product };
+            this.products.push(newProduct);
+            await this.saveProducts();
+            console.log('Producto agregado:', newProduct);
+        
+        } catch(error) {
+            
+            throw new Error(error.message);
+        
         }
-    
-        const newProduct = { id: nextId, ...product };
-        this.products.push(newProduct);
-        await this.saveProducts();
-        console.log('Producto agregado:', newProduct);
 
     }
 
     async updateProduct(id, updatedFields) {
 
-        let product = await this.getProductById(id);
-        if (!product) return;
+        try {
 
-        Object.keys(updatedFields).forEach((key) => {
+            let product = await this.getProductById(id);
+            if (!product) return;
 
-            product[key] = updatedFields[key];
+            Object.keys(updatedFields).forEach((key) => {
 
-        });
+                product[key] = updatedFields[key];
 
-        await this.saveProducts();
-        console.log('Producto actualizado:', product);
+            });
+
+            await this.saveProducts();
+            console.log('Producto actualizado:', product);
+        
+        } catch(error) {
+
+            throw new Error(error.message);
+
+        }
 
     }
 
     async deleteProduct(id) {
-        let index = this.products.findIndex((product) => product.id === id);
 
-        if (index === -1) {
+        try {
 
-          return;
+            let index = this.products.findIndex((product) => product.id === id);
+            if (index === -1) return;
+
+            this.products.splice(index, 1);
+            await this.saveProducts();
+            console.log(`Producto con ID ${id} ha sido eliminado.`);
+
+        } catch(error) {
+
+            throw new Error(error.message);
 
         }
-
-        this.products.splice(index, 1);
-        await this.saveProducts();
-        console.log(`Producto con ID ${id} ha sido eliminado.`);
 
     }
 
