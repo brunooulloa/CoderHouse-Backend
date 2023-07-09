@@ -6,6 +6,15 @@ const router = Router();
 const cm = new CartManager(`../json/carts.json`);
 const pm = new ProductManager(`../json/products.json`);
 
+const fieldsCheck = (req, res, next) => {
+    let cart = req.body;
+    if (!cart.products) {
+        return res.json({ status: 'error', message: 'Debe ingresar todos los parametros' });
+    } else {
+        next();
+    }
+};
+
 router.post('/', async (req, res) => {
 
     try {
@@ -64,7 +73,7 @@ router.get('/:cid', async (req, res) => {
 
 });
 
-router.put('/:cid', async (req, res) => {
+router.put('/:cid', fieldsCheck, async (req, res) => {
 
     try {
 
