@@ -1,6 +1,7 @@
 import fs from 'fs';
 import { __dirname } from '../utils.js'
 import { default as pathc } from 'path';
+import { v4 as uuidv4 } from 'uuid';
 
 export class ProductManager {
 
@@ -8,9 +9,7 @@ export class ProductManager {
 
         this.path = pathc.join(__dirname, 'src', path);
         console.log(this.path);
-        this.loadProducts().then(() => {
-            console.log('Archivo de productos cargado.');
-        });
+        this.loadProducts();
 
     }
 
@@ -18,7 +17,7 @@ export class ProductManager {
 
         try {
 
-            const data = JSON.stringify(this.products);
+            const data = JSON.stringify(this.products, null, 4);
             await fs.promises.writeFile(this.path, data);
             return 'Archivo de productos guardado.';
 
@@ -28,6 +27,10 @@ export class ProductManager {
           
         }
 
+    }
+
+    generateId() {
+        return uuidv4();
     }
 
     async loadProducts() {
@@ -82,16 +85,8 @@ export class ProductManager {
                 console.error('Fields validation failed!');
                 return;
             }
-        
             
-            let lastProd = this.products[this.products.length - 1];
-            let nextId = 1;
-
-            if (lastProd) {
-                nextId = lastProd.id + 1;
-            }
-        
-            const newProduct = { id: nextId, ...product };
+            const newProduct = { id: this.generateId(), ...product };
             this.products.push(newProduct);
             await this.saveProducts();
             console.log('Producto agregado:', newProduct);

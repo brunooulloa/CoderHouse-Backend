@@ -1,24 +1,25 @@
 import { Router } from 'express';
 import { CartManager } from '../managers/CartManager.js';
+import { ProductManager } from '../managers/ProductManager.js';
 
 const router = Router();
 const cm = new CartManager(`../json/carts.json`);
+const pm = new ProductManager(`../json/products.json`);
 
-const fieldsCheck = (req, res, next) => {
-    let cart = req.body;
-    if (!cart.title || !cart.description || !cart.code || !cart.price || !cart.stats || !cart.stock || !cart.category) {
-        return res.json({ status: 'error', message: 'Debe ingresar todos los parametros' });
-    } else {
-        next();
-    }
-};
+router.post('/', async (req, res) => {
 
-router.post('/', fieldsCheck, async (req, res) => {
     try {
-        let cartCreated = await cm.addCart(req.body);
-    } catch {
+
+        let cartCreated = await cm.save();
+        res.json({ status: 'success', data: cartCreated });
+
+    } catch (error) {
+
+        res.json({ status: 'error', message: error.message });
+        throw new Error(error.message);
 
     }
+
 });
 
 router.get('/', async (req, res) => {
@@ -51,7 +52,7 @@ router.get('/:cid', async (req, res) => {
 
     try {
 
-        let cid = Number(req.params.cid);
+        let cid = req.params.cid;
         let result = await cm.getCartById(cid);
         res.send(result);
 
@@ -63,11 +64,11 @@ router.get('/:cid', async (req, res) => {
 
 });
 
-router.put('/:cid', fieldsCheck, async (req, res) => {
+router.put('/:cid', async (req, res) => {
 
     try {
 
-        let cid = Number(req.params.cid);
+        let cid = req.params.cid;
         let cart = req.body;
         let result = await cm.updateCart(cid, cart);
         result.id = cid;
@@ -81,8 +82,43 @@ router.put('/:cid', fieldsCheck, async (req, res) => {
     
 });
 
-router.post('/:cid/products/:pid', fieldsCheck, async (req, res) => {
+router.post('/:cid/products/:pid', async (req, res) => {
+    
+    try {
 
+        let cid = req.params.cid;
+        let pid = req.params.pid;
+        let cart = await cm.getCartById(cid);
+        let prod = await pm.getProductById(pid);
+        let prods = cart.products;
+        let isProdInCart = cart.products.find((p) => p.id == pid)
+
+        if (isProdInCart) {
+            
+            let index = prods.findIndex((p) => p.id == pid);
+            cart.products[ index ].quantity++;
+            cm.saveCarts();
+            res.json({ status: 'success', data: cart });
+
+        } else {
+
+            const newProd = {
+                id: pid,
+                quantity: 1
+            }
+
+            cart.products.push(newProd);
+            cm.saveCarts()
+            res.json({ status: 'success', data: cart });
+
+        }
+
+    } catch (error) {
+
+        console.error(error.message);
+
+    }
+        
 });
 
 export { router as cartsRouter };

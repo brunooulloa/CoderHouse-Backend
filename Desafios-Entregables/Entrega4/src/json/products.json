@@ -1,41 +1,46 @@
 [
     {
-        "id": 0,
+        "id": "7eb610c8-4407-4426-bd87-48466ee8f5eb",
         "title": "Producto 1",
         "description": "Descripcion del producto 1",
         "code": "nn",
         "price": 1000,
         "status": true,
         "stock": 10,
-        "category": "nn",
+        "category": "none",
         "thumbnail": "Sin imagen"
-    
     },
-
     {
-        "id": 1,
+        "id": "be0f3771-f461-4cff-9a3c-147a6926c789",
         "title": "Producto 2",
         "description": "Descripcion del producto 2",
+        "code": "nn",
         "price": 2000,
-        "thumbnail": "Sin imagen",
-        "stock": 20
+        "status": true,
+        "stock": 20,
+        "category": "none",
+        "thumbnail": "Sin imagen"
     },
-    
     {
-        "id": 2,
+        "id": "e93a00bc-162b-4cb6-8e96-cb797b04a0e7",
         "title": "Producto 3",
         "description": "Descripcion del producto 3",
+        "code": "nn",
         "price": 3000,
-        "thumbnail": "Sin Imagen",
-        "stock": 30
+        "stock": 30,
+        "status": true,
+        "category": "none",
+        "thumbnail": "Sin imagen"
     },
-    
     {
-        "id": 3,
-        "title": "Producto 4",
-        "description": "Descripcion del producto 4",
-        "price": 4000,
-        "thumbnail": "Sin Imagen",
-        "stock": 40
+        "id": "3d8cee21-b554-4ce5-a67f-833178642d60",
+        "title": "Producto 37",
+        "description": "Descripcion del producto 37",
+        "code": "nn",
+        "price": 37000,
+        "status": true,
+        "stock": 370,
+        "category": "none",
+        "thumbnail": "Sin imagen"
     }
 ]

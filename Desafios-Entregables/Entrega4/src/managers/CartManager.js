@@ -1,15 +1,15 @@
 import fs from 'fs';
 import { default as pathc } from 'path';
 import { __dirname } from '../utils.js';
+import { v4 as uuidv4 } from 'uuid';
 
 export class CartManager {
 
     constructor(path) {
 
         this.path = pathc.join(__dirname, 'src', path);
-        this.loadCarts().then(() => {
-            console.log('Archivo de carritos cargado.');
-        });
+        console.log(this.path);
+        this.loadCarts().then(() => console.log('Carts loaded.'));
 
     }
 
@@ -19,14 +19,34 @@ export class CartManager {
 
     async saveCarts() {
 
-        try { 
+        try {
+
+            const data = JSON.stringify(this.carts, null, 4);
+            await fs.promises.writeFile(this.path, data);
+            return 'Archivo de carritos guardado.';
+
+        } catch(error) {
+
+            throw new Error('No se pudo guardar el archivo de carritos.');
+          
+        }
+
+    }
+
+    async save() {
+
+        try {
             if (this.existsFile()) {
-                const data = JSON.stringify(this.products);
-                await fs.promises.writeFile(this.path, data);
+                const newCart = {
+                    id: this.generateId(),
+                    products: []
+                }
+                this.carts.push(newCart);
+                await this.saveCarts();
                 return 'Archivo de carritos guardado.';
             } else {
                 this.carts = [];
-                throw new Error('No se encontro el archivo de carritos, se cargará un arreglo vacío.');
+                throw new Error('No se encontro el archivo de carritos, se guardara un arreglo vacío.');
             }
 
         } catch(error) {
@@ -35,6 +55,10 @@ export class CartManager {
           
         }
 
+    }
+
+    generateId() {
+        return uuidv4();
     }
 
     async loadCarts() {
@@ -69,7 +93,7 @@ export class CartManager {
         try {
 
             await this.loadCarts();
-            let cart = this.carts.find((cart) => cart.id === id);
+            let cart = this.carts.find((cart) => cart.id == id);
 
             if (!cart) {
 
@@ -96,15 +120,7 @@ export class CartManager {
                 return;
             }
         
-            
-            let lastCart = this.carts[this.carts.length - 1];
-            let nextId = 1;
-
-            if (lastCart) {
-                nextId = lastCart.id + 1;
-            }
-        
-            const newCart = { id: nextId, ... cart };
+            const newCart = { id: this.generateId, ... cart };
             this.carts.push(newCart);
             await this.saveCarts();
             console.log('Carrito agregado:', newCart);
@@ -117,11 +133,11 @@ export class CartManager {
 
     }
 
-    async updateCart(id, updatedFields) {
+    async updateCart(cid, pid) {
 
         try {
 
-            let cart = await this.getProductById(id);
+            let cart = await this.getCartById(cid);
             if (!cart) return;
 
             Object.keys(updatedFields).forEach((key) => {
@@ -131,7 +147,7 @@ export class CartManager {
             });
 
             await this.saveCarts();
-            console.log('Producto actualizado:', cart);
+            console.log('Carrito actualizado:', cart);
         
         } catch(error) {
 
