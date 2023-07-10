@@ -4,7 +4,7 @@ import { __dirname } from '../utils.js';
 
 const router = Router();
 
-export const pm = new ProductManager(`../json/products.json`);
+const pm = new ProductManager('../json/products.json');
 
 const fieldsCheck = (req, res, next) => {
 
