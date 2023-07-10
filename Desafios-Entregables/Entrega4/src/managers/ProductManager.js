@@ -8,8 +8,7 @@ export class ProductManager {
     constructor(path) {
 
         this.path = pathc.join(__dirname, 'src', path);
-        console.log(this.path);
-        this.loadProducts();
+        this.loadProducts().then(() => console.log('Products loaded.'));
 
     }
 
@@ -30,7 +29,9 @@ export class ProductManager {
     }
 
     generateId() {
+
         return uuidv4();
+
     }
 
     async loadProducts() {
@@ -46,6 +47,7 @@ export class ProductManager {
             throw new Error('No se pudo leer el archivo de productos, se cargará un arreglo vacío.');
 
         }
+
     }
 
     getProducts() {
@@ -75,6 +77,7 @@ export class ProductManager {
             throw new Error(error.message);
 
         }
+        
     }
 
     async addProduct(product) {

@@ -4,15 +4,22 @@ import { __dirname } from '../utils.js';
 
 const router = Router();
 
-const pm = new ProductManager(`../json/products.json`);
+export const pm = new ProductManager(`../json/products.json`);
 
 const fieldsCheck = (req, res, next) => {
+
     let prod = req.body;
+
     if (!prod.title || !prod.description || !prod.code || !prod.price || !prod.stock || !prod.category) {
+
         return res.json({ status: 'error', message: 'Debe ingresar todos los parametros' });
+
     } else {
+
         next();
+
     }
+
 };
 
 router.post('/', fieldsCheck, async (req, res) => {
@@ -20,7 +27,9 @@ router.post('/', fieldsCheck, async (req, res) => {
     try {
 
         let prod = req.body;
+        
         let newProd = {
+
             title: prod.title,
             description: prod.description,
             code: prod.code,
@@ -29,7 +38,9 @@ router.post('/', fieldsCheck, async (req, res) => {
             stock: prod.stock,
             category: prod.category,
             thumbnail: prod.thumbnail
+
         }
+
         let productCreated = await pm.addProduct(newProd);
         res.json({ status: 'success', data: productCreated });
 

@@ -1,17 +1,21 @@
 import { Router } from 'express';
 import { CartManager } from '../managers/CartManager.js';
-import { ProductManager } from '../managers/ProductManager.js';
 
 const router = Router();
 const cm = new CartManager(`../json/carts.json`);
-const pm = new ProductManager(`../json/products.json`);
 
 const fieldsCheck = (req, res, next) => {
+
     let cart = req.body;
+
     if (!cart.products) {
+
         return res.json({ status: 'error', message: 'Debe ingresar todos los parametros' });
+
     } else {
+
         next();
+        
     }
 };
 
@@ -51,6 +55,7 @@ router.get('/', async (req, res) => {
 
     } catch (error) {
 
+        res.json({ status: 'error', message: error.message });
         throw new Error(error.message);
 
     }
@@ -67,6 +72,7 @@ router.get('/:cid', async (req, res) => {
 
     } catch (error) {
 
+        res.json({ status: 'error', message: error.message });
         throw new Error(error.message);
 
     }
@@ -85,6 +91,7 @@ router.put('/:cid', fieldsCheck, async (req, res) => {
 
     } catch (error) {
 
+        res.json({ status: 'error', message: error.message });
         throw new Error(error.message);
 
     }
@@ -98,20 +105,19 @@ router.post('/:cid/products/:pid', async (req, res) => {
         let cid = req.params.cid;
         let pid = req.params.pid;
         let cart = await cm.getCartById(cid);
-        let prod = await pm.getProductById(pid);
         let prods = cart.products;
-        let isProdInCart = cart.products.find((p) => p.id == pid)
+        let isProdInCart = prods.find(p => p.id == pid)
 
         if (isProdInCart) {
             
-            let index = prods.findIndex((p) => p.id == pid);
+            let index = prods.findIndex(p => p.id == pid);
             cart.products[ index ].quantity++;
             cm.saveCarts();
             res.json({ status: 'success', data: cart });
 
         } else {
 
-            const newProd = {
+            let newProd = {
                 id: pid,
                 quantity: 1
             }
@@ -124,7 +130,8 @@ router.post('/:cid/products/:pid', async (req, res) => {
 
     } catch (error) {
 
-        console.error(error.message);
+        res.json({ status: 'error', message: error.message });
+        throw new Error(error.message);
 
     }
         

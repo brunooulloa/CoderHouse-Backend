@@ -8,13 +8,14 @@ export class CartManager {
     constructor(path) {
 
         this.path = pathc.join(__dirname, 'src', path);
-        console.log(this.path);
         this.loadCarts().then(() => console.log('Carts loaded.'));
 
     }
 
     existsFile() {
+
         return fs.existsSync(this.path);
+
     }
 
     async saveCarts() {
@@ -36,17 +37,25 @@ export class CartManager {
     async save() {
 
         try {
+
             if (this.existsFile()) {
+
                 const newCart = {
+
                     id: this.generateId(),
                     products: []
+
                 }
+
                 this.carts.push(newCart);
                 await this.saveCarts();
                 return 'Archivo de carritos guardado.';
             } else {
+
                 this.carts = [];
+                await this.saveCarts();
                 throw new Error('No se encontro el archivo de carritos, se guardara un arreglo vacío.');
+
             }
 
         } catch(error) {
@@ -58,7 +67,9 @@ export class CartManager {
     }
 
     generateId() {
+
         return uuidv4();
+
     }
 
     async loadCarts() {
@@ -66,12 +77,16 @@ export class CartManager {
         try {
 
             if (this.existsFile()) {
+
                 let data = await fs.promises.readFile(this.path, 'utf-8');
                 this.carts = JSON.parse(data);
                 return this.carts;
+
             } else {
+
                 this.carts = [];
-                throw new Error('No se encontro el archivo de carritos, se cargará un arreglo vacío.')
+                throw new Error('No se encontro el archivo de carritos, se cargará un arreglo vacío.');
+
             }
             
 
@@ -80,6 +95,7 @@ export class CartManager {
             throw new Error('No se pudo leer el archivo de carritos, se cargará un arreglo vacío.');
 
         }
+
     }
 
     getCarts() {
@@ -109,6 +125,7 @@ export class CartManager {
             throw new Error(error.message);
 
         }
+
     }
 
     async addCart(cart) {
@@ -116,8 +133,9 @@ export class CartManager {
         try {
         
             if (!cart || !cart.products) {
-                console.error('Fields validation failed!');
-                return;
+
+                throw new Error('Fields validation failed!');
+
             }
         
             const newCart = { id: this.generateId, ... cart };

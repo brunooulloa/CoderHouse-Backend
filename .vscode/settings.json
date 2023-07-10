@@ -2,5 +2,6 @@
     "workbench.colorCustomizations": {
         "sash.hoverBorder": "#33bbff",
         "tab.activeBorder": "#33bbff"
-    }
+    },
+    "compile-hero.disable-compile-files-on-did-save-code": false
 }
