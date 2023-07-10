@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import { CartManager } from '../managers/CartManager.js';
+import { CartManager } from '../controllers/CartManager.js';
 
 const router = Router();
-const cm = new CartManager(`../json/carts.json`);
+const cm = new CartManager(`../../data/carts.json`);
 
 const fieldsCheck = (req, res, next) => {
 

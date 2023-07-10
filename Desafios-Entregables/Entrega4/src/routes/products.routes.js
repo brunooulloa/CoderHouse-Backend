@@ -1,10 +1,10 @@
 import { Router } from 'express';
-import { ProductManager } from '../managers/ProductManager.js';
+import { ProductManager } from '../controllers/ProductManager.js';
 import { __dirname } from '../utils.js';
 
 const router = Router();
 
-const pm = new ProductManager('../json/products.json');
+const pm = new ProductManager('../../data/products.json');
 
 const fieldsCheck = (req, res, next) => {
 
