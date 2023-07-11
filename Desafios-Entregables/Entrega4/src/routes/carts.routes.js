@@ -52,8 +52,7 @@ router.put('/:cid', fieldsCheck, async (req, res) => {
         let cid = req.params.cid;
         let cart = req.body;
         let result = await cm.updateCart(cid, cart);
-        console.log(result);
-        res.send(result);
+        res.json({ status: 'success', data: result });
     } catch (error) {
         res.json({ status: 'error', message: error.message });
         throw new Error(error.message);
