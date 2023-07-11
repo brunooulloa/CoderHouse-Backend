@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { ProductManager } from '../controller/ProductManager.js';
+import { ProductManager } from '../controllers/ProductManager.js';
 import { __dirname } from '../utils.js';
 
 const router = Router();
@@ -47,7 +47,7 @@ router.post('/', fieldsCheck, async (req, res) => {
     } catch (error) {
 
         res.json({ status: 'error', message: error.message });
-        throw new Error(error.message);
+        throw error(error.message);
 
     }
 
@@ -74,7 +74,7 @@ router.get('/', async (req, res) => {
     } catch (error) {
 
         res.json({ status: 'error', message: error.message });
-        throw new Error(error.message);
+        throw error(error.message);
 
     }
 
@@ -91,7 +91,7 @@ router.get('/:pid', async (req, res) => {
     } catch (error) {
 
         res.json({ status: 'error', message: error.message });
-        throw new Error(error.message);
+        throw error(error.message);
 
     }
 
@@ -110,7 +110,7 @@ router.put('/:pid', fieldsCheck, async (req, res) => {
     } catch (error) {
         
         res.json({ status: 'error', message: error.message });
-        throw new Error(error.message);
+        throw error(error.message);
 
     }
     
@@ -123,11 +123,12 @@ router.delete('/:pid', async (req, res) => {
         let pid = req.params.pid;
         let result = await pm.deleteProduct(pid);
         res.json({ status: 'success', data: result });
+        
 
     } catch (error) {
 
         res.json({ status: 'error', message: error.message });
-        throw new Error(error.message);
+        throw error(error.message);
 
     }
 });

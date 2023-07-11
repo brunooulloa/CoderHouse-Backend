@@ -28,7 +28,7 @@ export class CartManager {
 
         } catch(error) {
 
-            throw new Error('No se pudo guardar el archivo de carritos.');
+            throw error('No se pudo guardar el archivo de carritos.');
           
         }
 
@@ -60,7 +60,7 @@ export class CartManager {
 
         } catch(error) {
 
-            throw new Error('No se pudo guardar el archivo de carritos.');
+            throw error('No se pudo guardar el archivo de carritos.');
           
         }
 
@@ -92,7 +92,7 @@ export class CartManager {
 
         } catch(error) {
 
-            throw new Error('No se pudo leer el archivo de carritos, se cargará un arreglo vacío.');
+            throw error('No se pudo leer el archivo de carritos, se cargará un arreglo vacío.');
 
         }
 
@@ -117,7 +117,7 @@ export class CartManager {
 
         } catch(error) {
 
-            throw new Error(error.message);
+            throw error(error.message);
 
         }
 
@@ -129,7 +129,7 @@ export class CartManager {
         
             if (!cart || !cart.products) {
 
-                throw new Error('Fields validation failed!');
+                throw error('Fields validation failed!');
 
             }
         
@@ -140,7 +140,7 @@ export class CartManager {
         
         } catch(error) {
             
-            throw new Error(error.message);
+            throw error(error.message);
         
         }
 
@@ -164,7 +164,7 @@ export class CartManager {
         
         } catch(error) {
 
-            throw new Error(error.message);
+            throw error(error.message);
 
         }
 
@@ -183,7 +183,7 @@ export class CartManager {
 
         } catch(error) {
 
-            throw new Error(error.message);
+            throw error(error.message);
 
         }
 

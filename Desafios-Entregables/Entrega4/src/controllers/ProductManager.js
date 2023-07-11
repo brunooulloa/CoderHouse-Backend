@@ -22,7 +22,7 @@ export class ProductManager {
 
         } catch(error) {
 
-            throw new Error('No se pudo guardar el archivo de productos.');
+            throw error('No se pudo guardar el archivo de productos.');
           
         }
 
@@ -44,7 +44,7 @@ export class ProductManager {
 
         } catch(error) {
 
-            throw new Error('No se pudo leer el archivo de productos, se cargará un arreglo vacío.');
+            throw error('No se pudo leer el archivo de productos, se cargará un arreglo vacío.');
 
         }
 
@@ -74,7 +74,7 @@ export class ProductManager {
 
         } catch(error) {
 
-            throw new Error(error.message);
+            throw error(error.message);
 
         }
         
@@ -96,7 +96,7 @@ export class ProductManager {
         
         } catch(error) {
             
-            throw new Error(error.message);
+            throw error(error.message);
         
         }
 
@@ -122,7 +122,7 @@ export class ProductManager {
         
         } catch(error) {
 
-            throw new Error(error.message);
+            throw error(error.message);
 
         }
 
@@ -141,7 +141,7 @@ export class ProductManager {
 
         } catch(error) {
 
-            throw new Error(error.message);
+            throw error(error.message);
 
         }
 

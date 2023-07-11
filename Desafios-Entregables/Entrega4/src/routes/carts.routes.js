@@ -29,7 +29,7 @@ router.post('/', async (req, res) => {
     } catch (error) {
 
         res.json({ status: 'error', message: error.message });
-        throw new Error(error.message);
+        throw error(error.message);
 
     }
 
@@ -56,7 +56,7 @@ router.get('/', async (req, res) => {
     } catch (error) {
 
         res.json({ status: 'error', message: error.message });
-        throw new Error(error.message);
+        throw error(error.message);
 
     }
 
@@ -73,7 +73,7 @@ router.get('/:cid', async (req, res) => {
     } catch (error) {
 
         res.json({ status: 'error', message: error.message });
-        throw new Error(error.message);
+        throw error(error.message);
 
     }
 
@@ -92,7 +92,7 @@ router.put('/:cid', fieldsCheck, async (req, res) => {
     } catch (error) {
 
         res.json({ status: 'error', message: error.message });
-        throw new Error(error.message);
+        throw error(error.message);
 
     }
     
@@ -131,7 +131,7 @@ router.post('/:cid/products/:pid', async (req, res) => {
     } catch (error) {
 
         res.json({ status: 'error', message: error.message });
-        throw new Error(error.message);
+        throw error(error.message);
 
     }
         
