@@ -1,0 +1,18 @@
+<h1>Restaurante pepito</h1>
+<p>Nombre: {{name}}</p>
+
+{{#if isAdmin}}
+
+    <h3>Lista de alimentos</h3>
+
+    {{#each food}}
+
+        <p>Nombre: {{this.name}}, Precio: {{this.price}}</p>
+
+    {{/each}}
+
+{{else}}
+
+    <h3> No tienes permiso para ver este contenido </h3>
+
+{{/if}}
