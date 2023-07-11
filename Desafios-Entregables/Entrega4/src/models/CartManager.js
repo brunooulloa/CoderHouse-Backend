@@ -7,7 +7,7 @@ export class CartManager {
 
     constructor(path) {
 
-        this.path = pathc.join(__dirname, 'src', path);
+        this.path = pathc.join(__dirname, 'data', path);
         this.loadCarts().then(() => console.log('Carts loaded.'));
 
     }
