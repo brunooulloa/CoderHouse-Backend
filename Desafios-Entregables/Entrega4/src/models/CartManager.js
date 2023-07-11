@@ -111,12 +111,7 @@ export class CartManager {
             await this.loadCarts();
             let cart = this.carts.find((cart) => cart.id == id);
 
-            if (!cart) {
-
-                console.error('Carrito no encontrado');
-                return;
-
-            }
+            if (!cart) throw new Error('Carrito no encontrado');
 
             return cart;
 

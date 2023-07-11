@@ -118,7 +118,7 @@ router.post('/:cid/products/:pid', async (req, res) => {
         } else {
 
             let newProd = {
-                id: pid,
+                product: pid,
                 quantity: 1
             }
 

@@ -30,16 +30,16 @@ router.post('/', fieldsCheck, async (req, res) => {
         
         let newProd = {
 
-            title: prod.title,
-            description: prod.description,
-            code: prod.code,
-            price: prod.price,
-            status: prod.status || true,
-            stock: prod.stock,
-            category: prod.category,
-            thumbnail: prod.thumbnail
+            title: typeof prod.title === 'string' ? prod.title : toString(prod.title),
+            description: typeof prod.description === 'string' ? prod.description : toString(prod.description),
+            code: typeof prod.code === 'string' ? prod.code : toString(prod.code),
+            price: typeof prod.price === 'number' ? prod.price : Number(prod.price),
+            status: typeof prod.status === 'boolean' ? prod.status : true,
+            stock: typeof prod.stock === 'number' ? prod.stock : Number(prod.stock),
+            category: typeof prod.category === 'string' ? prod.category : toString(prod.category),
+            thumbnail: [ prod.thumbnail ] || [ 'Sin imagen' ]
 
-        }
+        };
 
         let productCreated = await pm.addProduct(newProd);
         res.json({ status: 'success', data: productCreated });
