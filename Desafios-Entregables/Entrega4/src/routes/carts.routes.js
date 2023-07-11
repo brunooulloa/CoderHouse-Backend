@@ -6,7 +6,7 @@ const cm = new CartManager(`../../data/carts.json`);
 
 const fieldsCheck = (req, res, next) => {
     let cart = req.body;
-    if (!cart.products) return res.json({ status: 'error', message: 'Debe ingresar todos los parametros' })
+    if (!cart.products) return (res.json({ status: 'error', message: 'Debe ingresar todos los parametros' } && console.log(cart)));
     else next();
 };
 
@@ -16,7 +16,7 @@ router.post('/', async (req, res) => {
         res.json({ status: 'success', data: cartCreated });
     } catch (error) {
         res.json({ status: 'error', message: error.message });
-        throw error(error.message);
+        throw new Error(error.message);
     }
 });
 
@@ -32,7 +32,7 @@ router.get('/', async (req, res) => {
         }
     } catch (error) {
         res.json({ status: 'error', message: error.message });
-        throw error(error.message);
+        throw new Error(error.message);
     }
 });
 
@@ -43,7 +43,7 @@ router.get('/:cid', async (req, res) => {
         res.send(result);
     } catch (error) {
         res.json({ status: 'error', message: error.message });
-        throw error(error.message);
+        throw new Error(error.message);
     }
 });
 
@@ -52,11 +52,11 @@ router.put('/:cid', fieldsCheck, async (req, res) => {
         let cid = req.params.cid;
         let cart = req.body;
         let result = await cm.updateCart(cid, cart);
-        result.id = cid;
+        console.log(result);
         res.send(result);
     } catch (error) {
         res.json({ status: 'error', message: error.message });
-        throw error(error.message);
+        throw new Error(error.message);
     }
 });
 
@@ -83,7 +83,7 @@ router.post('/:cid/products/:pid', async (req, res) => {
         }
     } catch (error) {
         res.json({ status: 'error', message: error.message });
-        throw error(error.message);f
+        throw new Error(error.message);
     } 
 });
 

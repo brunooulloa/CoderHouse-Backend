@@ -19,7 +19,7 @@ export class CartManager {
             await fs.promises.writeFile(this.path, data);
             return 'Archivo de carritos guardado.';
         } catch(error) {
-            throw error('No se pudo guardar el archivo de carritos.');
+            throw new Error('No se pudo guardar el archivo de carritos.');
         }
     }
 
@@ -40,7 +40,7 @@ export class CartManager {
                 throw new Error('No se encontro el archivo de carritos, se guardara un arreglo vacío.');
             }
         } catch(error) {
-            throw error('No se pudo guardar el archivo de carritos.');
+            throw new Error('No se pudo guardar el archivo de carritos.');
         }
     }
 
@@ -59,7 +59,7 @@ export class CartManager {
                 throw new Error('No se encontro el archivo de carritos, se cargará un arreglo vacío.');
             }
         } catch(error) {
-            throw error('No se pudo leer el archivo de carritos, se cargará un arreglo vacío.');
+            throw new Error('No se pudo leer el archivo de carritos, se cargará un arreglo vacío.');
         }
     }
 
@@ -76,24 +76,24 @@ export class CartManager {
 
             return cart;
         } catch(error) {
-            throw error(error.message);
+            throw new Error(error.message);
         }
 
     }
 
     async addCart(cart) {
         try {
-            if (!cart || !cart.products) throw error('Fields validation failed!');
+            if (!cart || !cart.products) throw new Error('Fields validation failed!');
             const newCart = { id: this.generateId, ... cart };
             this.carts.push(newCart);
             await this.saveCarts();
             console.log('Carrito agregado:', newCart);
         } catch(error) {
-            throw error(error.message);
+            throw new Error(error.message);
         }
     }
 
-    async updateCart(cid, pid) {
+    async updateCart(cid, updatedFields) {
         try {
             let cart = await this.getCartById(cid);
             if (!cart) return;
@@ -103,7 +103,7 @@ export class CartManager {
             await this.saveCarts();
             console.log('Carrito actualizado:', cart);
         } catch(error) {
-            throw error(error.message);
+            throw new Error(error.message);
         }
     }
 
@@ -115,7 +115,7 @@ export class CartManager {
             await this.saveCarts();
             console.log(`Carrito con ID ${id} ha sido eliminado.`);
         } catch(error) {
-            throw error(error.message);
+            throw new Error(error.message);
         }
     }
 }

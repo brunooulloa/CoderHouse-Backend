@@ -30,7 +30,7 @@ router.post('/', fieldsCheck, async (req, res) => {
         res.json({ status: 'success', data: productCreated });
     } catch (error) {
         res.json({ status: 'error', message: error.message });
-        throw error(error.message);
+        throw new Error(error.message);
     }
 });
 
@@ -47,7 +47,7 @@ router.get('/', async (req, res) => {
 
     } catch (error) {
         res.json({ status: 'error', message: error.message });
-        throw error(error.message);
+        throw new Error(error.message);
     }
 });
 
@@ -58,7 +58,7 @@ router.get('/:pid', async (req, res) => {
         res.json({ status: 'success', data: result });
     } catch (error) {
         res.json({ status: 'error', message: error.message });
-        throw error(error.message);
+        throw new Error(error.message);
     }
 });
 
@@ -71,7 +71,7 @@ router.put('/:pid', fieldsCheck, async (req, res) => {
         res.json({ status: 'success', data: result });
     } catch (error) {
         res.json({ status: 'error', message: error.message });
-        throw error(error.message);
+        throw new Error(error.message);
     }
 });
 
@@ -82,7 +82,7 @@ router.delete('/:pid', async (req, res) => {
         res.json({ status: 'success', data: result });
     } catch (error) {
         res.json({ status: 'error', message: error.message });
-        throw error(error.message);
+        throw new Error(error.message);
     }
 });
 

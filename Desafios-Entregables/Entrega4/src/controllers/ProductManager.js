@@ -15,7 +15,7 @@ export class ProductManager {
             await fs.promises.writeFile(this.path, data);
             return 'Archivo de productos guardado.';
         } catch(error) {
-            throw error('No se pudo guardar el archivo de productos.');
+            throw new Error('No se pudo guardar el archivo de productos.');
         }
     }
 
@@ -29,7 +29,7 @@ export class ProductManager {
             this.products = JSON.parse(data);
             return this.products;
         } catch(error) {
-            throw error('No se pudo leer el archivo de productos, se cargará un arreglo vacío.');
+            throw new Error('No se pudo leer el archivo de productos, se cargará un arreglo vacío.');
         }
     }
 
@@ -44,7 +44,7 @@ export class ProductManager {
             if (!product) throw new Error('No se encontró el producto con el ID especificado.')
             return product;
         } catch(error) {
-            throw error(error.message);
+            throw new Error(error.message);
         }
     }
 
@@ -56,7 +56,7 @@ export class ProductManager {
             await this.saveProducts();
             console.log('Producto agregado:', newProduct);
         } catch(error) {
-            throw error(error.message);
+            throw new Error(error.message);
         }
     }
 
@@ -71,7 +71,7 @@ export class ProductManager {
             await this.saveProducts();
             console.log('Producto actualizado:', product);
         } catch(error) {
-            throw error(error.message);
+            throw new Error(error.message);
         }
     }
 
@@ -83,7 +83,7 @@ export class ProductManager {
             await this.saveProducts();
             console.log(`Producto con ID ${id} ha sido eliminado.`);
         } catch(error) {
-            throw error(error.message);
+            throw new Error(error.message);
         }
     }
 }
