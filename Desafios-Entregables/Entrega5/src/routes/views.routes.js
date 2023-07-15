@@ -1,0 +1,9 @@
+import { Router } from 'express';
+
+const router = new Router();
+
+router.get('/', (req, res) => {
+    res.render('home');
+})
+
+export { router as viewsRouter };

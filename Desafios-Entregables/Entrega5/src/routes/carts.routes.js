@@ -1,5 +1,7 @@
 import { Router } from 'express';
-import { CartManager } from '../models/CartManager.js';
+import { CartManager } from '../controllers/CartManager.js';
+import { __dirname } from '../utils.js';
+import path from 'path';
 
 const router = Router();
 const cm = new CartManager(`../../data/carts.json`);
@@ -36,7 +38,6 @@ router.post('/', async (req, res) => {
 });
 
 router.get('/', async (req, res) => {
-
     try {
 
         let limit = Number(req.query.limit);
