@@ -1,0 +1,32 @@
+[
+    {
+        "id": "481bd2a1-8c54-4dea-bed7-5588d84beb49",
+        "title": "Nike Air Jordan 1 Low",
+        "description": "Travis Scott size 9",
+        "stock": "14",
+        "thumbnail": "https://i.imgur.com/i9PvxFp.png",
+        "category": "Zapatillas",
+        "price": "1500",
+        "code": "aj1ts"
+    },
+    {
+        "id": "e0e1f988-2029-44e7-a92a-4e404555a35c",
+        "title": "Nike Dunk Low StrangeLove",
+        "description": "Size 9.5",
+        "stock": "2",
+        "thumbnail": "https://i.imgur.com/1yDJAev.png",
+        "category": "Zapatillas",
+        "price": "250000",
+        "code": "dsl1"
+    },
+    {
+        "id": "88d5dfd9-a42e-4b09-b9d9-788c9e1caa96",
+        "title": "Nike Dunk Low Diamond",
+        "description": "Size 8.5",
+        "stock": "10",
+        "thumbnail": "https://i.imgur.com/hKmw1WS.png",
+        "category": "Zapatillas",
+        "price": "250000",
+        "code": "dd1"
+    }
+]

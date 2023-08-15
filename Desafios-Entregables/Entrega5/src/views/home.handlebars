@@ -1,0 +1,24 @@
+
+<article id="list-products">
+  	{{#each listadeproductos}}
+		<article class="container" id="list-products">
+			<div class="card">
+				<div class="imgBx">
+					<img src="{{thumbnail}}" width="150" />
+				</div>
+				<div class="contentBx">
+					<h2>{{title}}</h2>
+					<div class="size">
+						<h3>{{description}}</h3>
+					</div>
+					<div class="color">
+						<h3>{{price}}</h3>
+					</div>
+					<a href="#">Buy Now</a>
+				</div>
+			</div>
+		</article>
+  	{{/each}}
+</article>
+
+<script src="js/realtime.js"></script>
